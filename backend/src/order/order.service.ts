@@ -70,10 +70,8 @@ export class OrderService {
 
     await this.filmsRepository.save(film);
 
-    const total = items.reduce((sum, ticket) => sum + ticket.price, 0);
-
     return {
-      total,
+      total: items.length,
       items,
     };
   }
