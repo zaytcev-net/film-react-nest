@@ -1,9 +1,13 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayNotEmpty,
+  IsArray,
+  IsDateString,
   IsEmail,
   IsInt,
   IsNotEmpty,
   IsNumber,
+  IsString,
   IsUUID,
   Min,
   ValidateNested,
@@ -16,7 +20,7 @@ export class TicketDto {
   @IsUUID()
   session: string;
 
-  @IsNotEmpty()
+  @IsDateString()
   daytime: string;
 
   @IsInt()
@@ -36,10 +40,23 @@ export class CreateOrderDto {
   @IsEmail()
   email: string;
 
+  @IsString()
   @IsNotEmpty()
   phone: string;
 
+  @IsArray()
+  @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => TicketDto)
   tickets: TicketDto[];
+}
+
+export class OrderTicketDto {
+  id: string;
+  film: string;
+  session: string;
+  daytime: string;
+  row: number;
+  seat: number;
+  price: number;
 }

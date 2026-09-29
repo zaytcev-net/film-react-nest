@@ -6,7 +6,7 @@ import {
 import { randomUUID } from 'node:crypto';
 
 import { FilmsRepository } from '../repository/films.repository';
-import { CreateOrderDto } from './dto/order.dto';
+import { CreateOrderDto, OrderTicketDto } from './dto/order.dto';
 
 @Injectable()
 export class OrderService {
@@ -25,7 +25,7 @@ export class OrderService {
       throw new NotFoundException('Фильм не найден');
     }
 
-    const items = [];
+    const items: OrderTicketDto[] = [];
 
     for (const ticket of order.tickets) {
       if (ticket.film !== filmId) {
