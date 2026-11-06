@@ -1,41 +1,68 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import { Film, FilmDocument } from '../films/schemas/film.schema';
+import { Film } from '../films/entities/film.entity';
+import { Schedule } from '../films/entities/schedule.entity';
 
 @Injectable()
 export class FilmsRepository {
   constructor(
-    @InjectModel(Film.name)
-    private readonly filmModel: Model<FilmDocument>,
+    @InjectRepository(Film)
+    private readonly filmRepository: Repository<Film>,
+
+    @InjectRepository(Schedule)
+    private readonly scheduleRepository: Repository<Schedule>,
   ) {}
 
   findAll() {
-    return this.filmModel
-      .find()
-      .select({
-        _id: 0,
-        __v: 0,
-        schedule: 0,
-      })
-      .lean()
-      .exec();
+    return this.filmRepository.find({
+      select: {
+        id: true,
+        rating: true,
+        director: true,
+        tags: true,
+        image: true,
+        cover: true,
+        title: true,
+        about: true,
+        description: true,
+      },
+    });
   }
 
   findById(id: string) {
-    return this.filmModel.findOne({ id }).exec();
+    return this.filmRepository.findOne({
+      where: { id },
+      relations: { schedule: true },
+    });
   }
 
   findScheduleByFilmId(id: string) {
-    return this.filmModel
-      .findOne({ id })
-      .select({ schedule: 1, _id: 0 })
-      .lean()
-      .exec();
+    return this.filmRepository.findOne({
+      where: { id },
+      relations: { schedule: true },
+      select: {
+        id: true,
+        schedule: {
+          id: true,
+          daytime: true,
+          hall: true,
+          rows: true,
+          seats: true,
+          price: true,
+          taken: true,
+        },
+      },
+    });
   }
 
-  save(film: FilmDocument) {
-    return film.save();
+  async save(film: Film) {
+    await this.scheduleRepository.save(film.schedule);
+    return film;
+  }
+
+  saveSchedule(schedule: Schedule) {
+    return this.scheduleRepository.save(schedule);
   }
 }
