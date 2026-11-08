@@ -23,7 +23,9 @@ function createLogger(loggerType: string) {
 }
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
 
   const config = app.get<AppConfig>('CONFIG');
 
