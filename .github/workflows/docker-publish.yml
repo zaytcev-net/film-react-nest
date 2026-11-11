@@ -47,8 +47,8 @@ jobs:
           push: true
           tags: ghcr.io/zaytcev-net/film-frontend:latest
           build-args: |
-            VITE_API_URL=http://api.zaytcev-net.nomorepartiessite.ru/api/afisha
-            VITE_CDN_URL=http://api.zaytcev-net.nomorepartiessite.ru/content/afisha
+            VITE_API_URL=https://api.zaytcev-net.nomorepartiessite.ru/api/afisha
+            VITE_CDN_URL=https://api.zaytcev-net.nomorepartiessite.ru/content/afisha
 
       # Собираем и публикуем nginx
       - name: Build and push nginx

@@ -45,6 +45,7 @@ services:
     pull_policy: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - frontend_data:/usr/share/nginx/html:ro
       - certbot_data:/var/www/certbot:ro
