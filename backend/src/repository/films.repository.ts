@@ -54,6 +54,11 @@ export class FilmsRepository {
           taken: true,
         },
       },
+      order: {
+        schedule: {
+          daytime: 'ASC',
+        },
+      },
     });
   }
 
