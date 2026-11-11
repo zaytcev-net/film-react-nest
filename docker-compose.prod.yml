@@ -47,11 +47,22 @@ services:
       - "80:80"
     volumes:
       - frontend_data:/usr/share/nginx/html:ro
+      - certbot_data:/var/www/certbot:ro
+      - letsencrypt_data:/etc/letsencrypt:ro
     depends_on:
       frontend:
         condition: service_completed_successfully
       backend:
         condition: service_started
+
+  # Let's Encrypt Certbot
+  certbot:
+    image: certbot/certbot:latest
+    profiles:
+      - tools
+    volumes:
+      - certbot_data:/var/www/certbot
+      - letsencrypt_data:/etc/letsencrypt
 
   # pgAdmin
   pgadmin:
@@ -72,3 +83,5 @@ volumes:
   postgres_data:
   pgadmin_data:
   frontend_data:
+  certbot_data:
+  letsencrypt_data:
