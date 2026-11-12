@@ -4,7 +4,7 @@ name: Build, Publish and Deploy
 on:
   push:
     branches:
-      - review-3
+      - main
 
 permissions:
   contents: read

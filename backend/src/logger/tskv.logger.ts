@@ -28,23 +28,23 @@ export class TskvLogger implements LoggerService {
       .replace(/\n/g, '\\n');
   }
 
-  log(message: any, ...optionalParams: any[]): void {
+  log(message: unknown, ...optionalParams: unknown[]): void {
     console.log(this.formatMessage('log', message, ...optionalParams));
   }
 
-  error(message: any, ...optionalParams: any[]): void {
+  error(message: unknown, ...optionalParams: unknown[]): void {
     console.error(this.formatMessage('error', message, ...optionalParams));
   }
 
-  warn(message: any, ...optionalParams: any[]): void {
+  warn(message: unknown, ...optionalParams: unknown[]): void {
     console.warn(this.formatMessage('warn', message, ...optionalParams));
   }
 
-  debug(message: any, ...optionalParams: any[]): void {
+  debug(message: unknown, ...optionalParams: unknown[]): void {
     console.debug(this.formatMessage('debug', message, ...optionalParams));
   }
 
-  verbose(message: any, ...optionalParams: any[]): void {
+  verbose(message: unknown, ...optionalParams: unknown[]): void {
     console.log(this.formatMessage('verbose', message, ...optionalParams));
   }
 }

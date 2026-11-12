@@ -23,11 +23,11 @@ services:
     image: film-backend
     restart: unless-stopped
     environment:
-      DATABASE_URL: database
+      DATABASE_URL: ${DATABASE_URL}
       DATABASE_USERNAME: ${DATABASE_USERNAME:-postgres}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-postgres}
       DATABASE_NAME: ${DATABASE_NAME:-afisha}
-      DATABASE_PORT: 5432
+      DATABASE_PORT: ${DATABASE_PORT}
       LOGGER_TYPE: ${LOGGER_TYPE:-dev}
     depends_on:
       database:

@@ -21,11 +21,11 @@ services:
     restart: unless-stopped
     pull_policy: always
     environment:
-      DATABASE_URL: database
+      DATABASE_URL: ${DATABASE_URL}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_PORT: 5432
+      DATABASE_PORT: ${DATABASE_PORT}
       LOGGER_TYPE: ${LOGGER_TYPE:-json}
     depends_on:
       database:
@@ -34,6 +34,7 @@ services:
   # React frontend
   frontend:
     image: ghcr.io/zaytcev-net/film-frontend:latest
+    restart: "no"
     pull_policy: always
     volumes:
       - frontend_data:/frontend
@@ -59,6 +60,7 @@ services:
   # Let's Encrypt Certbot
   certbot:
     image: certbot/certbot:latest
+    restart: "no"
     profiles:
       - tools
     volumes:
